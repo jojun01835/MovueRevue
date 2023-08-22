@@ -23,6 +23,7 @@ export default {
       password: "",
       slide: 0,
       sliding: null,
+      id: "",
     };
   },
   methods: {
@@ -31,7 +32,9 @@ export default {
         const auth = getAuth(); // auth 객체 가져오기
         await signInWithEmailAndPassword(auth, this.email, this.password); // signInWithEmailAndPassword 함수 사용
         console.log("Logged in successfully");
-        this.$router.push("/main");
+        this.id = this.email;
+        console.log("this.email:", this.id);
+        this.$router.push({ name: "Main", params: { email: this.id } });
       } catch (error) {
         console.error("Login error:", error);
         alert("아이디와 비밀번호가 일치하지 않습니다.");

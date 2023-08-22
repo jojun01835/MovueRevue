@@ -6,7 +6,12 @@ import MovieDetail from "../components/MovieDetail.vue";
 const routes = [
   { path: "/", component: Login },
   { path: "/signup", component: Signup },
-  { path: "/main", component: main },
+  {
+    path: "/main",
+    name: "Main",
+    component: main,
+    props: (route) => ({ email: route.query.email }), // email 매개변수를 명시적으로 지정
+  },
   {
     path: "/main/:id", // :id는 동적 라우트 매개변수
     name: "MovieDetail",

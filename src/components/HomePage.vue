@@ -1,7 +1,7 @@
 <template lang="">
   <div class="wrap-main">
     <h1 class="maintitle">mainpages</h1>
-
+    <h2>환영합니다 {{ email }}님!</h2>
     <h2 class="movie-content">Popular Movies 5</h2>
     <ul class="movie-wrap">
       <li v-for="(movie, i) in topRatedMovies" :key="movie.id" class="movielist">
@@ -30,7 +30,14 @@
 </template>
 <script>
 import axios from "axios";
+import { getAuth } from "firebase/auth";
+import { auth } from "@/firebase.js";
+import Login from "./Login.vue";
+
 export default {
+  props: {
+    email: String,
+  },
   data() {
     return {
       movies: [],
@@ -56,12 +63,15 @@ export default {
         .slice(0, 5);
     },
   },
+  created() {
+    console.log(this.email);
+  },
+
   async mounted() {
     try {
       const apiKey = "aa4a8de3b3335511976d80abff2d57f0";
       const response = await axios.get(`https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&language=ko-US&page=1`);
       this.movies = response.data.results;
-      console.log(this.movies);
     } catch (error) {
       console.error("Error fetching movie data:", error);
     }
