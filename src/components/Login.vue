@@ -21,6 +21,8 @@ export default {
     return {
       email: "",
       password: "",
+      slide: 0,
+      sliding: null,
     };
   },
   methods: {
@@ -29,8 +31,10 @@ export default {
         const auth = getAuth(); // auth 객체 가져오기
         await signInWithEmailAndPassword(auth, this.email, this.password); // signInWithEmailAndPassword 함수 사용
         console.log("Logged in successfully");
+        this.$router.push("/main");
       } catch (error) {
         console.error("Login error:", error);
+        alert("아이디와 비밀번호가 일치하지 않습니다.");
       }
     },
   },
@@ -40,7 +44,7 @@ export default {
 .wrap {
   width: 100%;
   height: 100vh;
-  background: #252525;
+  background: #0c0c0c;
 }
 .title {
   padding-top: 150px;
@@ -57,9 +61,11 @@ input {
   justify-content: center;
 }
 input {
-  width: 300px;
+  width: 100%;
+  max-width: 280px;
   display: inline-block;
   margin: 10px;
+  box-sizing: border-box;
 }
 .Login {
   background: #1aab8a;
@@ -72,9 +78,8 @@ input {
   cursor: pointer;
   transition: 800ms ease all;
   outline: none;
-}
-input:last-child {
-  margin-bottom: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 button:hover {
   background: #fff;
